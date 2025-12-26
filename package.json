@@ -5,20 +5,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun run --parallel dev:client dev:server",
+    "dev": "concurrently \"bun run dev:client\" \"bun run dev:server\"",
     "dev:client": "bun --cwd client dev",
     "dev:server": "bun --cwd server dev",
-    "build": "bun run build:client && bun run build:server",
+    "build": "bun run build:client",
     "build:client": "bun --cwd client build",
-    "build:server": "bun --cwd server build",
     "preview": "bun --cwd client preview",
-    "deploy": "bun run build && bun run deploy:server && bun run deploy:client",
+    "deploy": "bun run build:client && bun run deploy:server && bun run deploy:client",
     "deploy:client": "bun --cwd client deploy",
     "deploy:server": "bun --cwd server deploy",
-    "cf-typegen": "bun run --parallel cf-typegen:client cf-typegen:server",
+    "cf-typegen": "concurrently \"bun run cf-typegen:client\" \"bun run cf-typegen:server\"",
     "cf-typegen:client": "bun --cwd client cf-typegen",
     "cf-typegen:server": "bun --cwd server cf-typegen",
     "install:all": "bun install && bun --cwd client install && bun --cwd server install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   },
   "engines": {
     "bun": ">=1.0.0"
